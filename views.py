@@ -24,6 +24,7 @@ def search(request):
     else:
         return HttpResponse('Please submit a search term.')
 
+
 def hello(request):
     return HttpResponse("Hello world")
 
@@ -42,6 +43,7 @@ def hours_ahead(request, offset):
     html = "<html><body>In %s hour(s), it will be %s.</body></html>" % (offset, dt)
     return HttpResponse(html)
 
+
 def home(request):
 
     # p1 = Publisher(name='Addison-Wesley', address='75 Arlington Street',
@@ -52,11 +54,10 @@ def home(request):
     #     city='Cambridge', state_province='MA', country='U.S.A.',
     #     website='http://www.oreilly.com/')
     # p2.save()
+
     publisher_list = Publisher.objects.all()
 
-    html = "<html><head><title>%s</title></head><body>List of publishers: %s</body></html>" % ("To-Do", publisher_list)
-
-    return HttpResponse(html)
+    return render_to_response('home.html', {'title': 'To-Do'})
 
 
 def display_meta(request):
