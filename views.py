@@ -44,17 +44,17 @@ def hours_ahead(request, offset):
 
 def home(request):
 
-    p1 = Publisher(name='Addison-Wesley', address='75 Arlington Street',
-        city='Boston', state_province='MA', country='U.S.A.',
-        website='http://www.apress.com/')
-    p1.save()
-    p2 = Publisher(name="O'Reilly", address='10 Fawcett St.',
-        city='Cambridge', state_province='MA', country='U.S.A.',
-        website='http://www.oreilly.com/')
-    p2.save()
+    # p1 = Publisher(name='Addison-Wesley', address='75 Arlington Street',
+    #     city='Boston', state_province='MA', country='U.S.A.',
+    #     website='http://www.apress.com/')
+    # p1.save()
+    # p2 = Publisher(name="O'Reilly", address='10 Fawcett St.',
+    #     city='Cambridge', state_province='MA', country='U.S.A.',
+    #     website='http://www.oreilly.com/')
+    # p2.save()
     publisher_list = Publisher.objects.all()
 
-    html = "<html><head><title>%s</title></head><body>List of publishers: %s</body></html>" % ("Django", publisher_list)
+    html = "<html><head><title>%s</title></head><body>List of publishers: %s</body></html>" % ("To-Do", publisher_list)
 
     return HttpResponse(html)
 
