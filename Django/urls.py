@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'Django.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', views.home),
+    url(r'^$', 'views.home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^time/$', views.current_datetime),
     url(r'^time/plus/(\d{1,2})/$', views.hours_ahead),
