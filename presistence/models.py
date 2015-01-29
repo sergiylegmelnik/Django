@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Publisher(models.Model):
     name = models.CharField(max_length=30)
     address = models.CharField(max_length=50)
@@ -14,6 +15,7 @@ class Publisher(models.Model):
     class Meta:
         ordering = ["name"]
 
+
 class Author(models.Model):
     salutation = models.CharField(max_length=10)
     first_name = models.CharField(max_length=30)
@@ -27,6 +29,7 @@ class Author(models.Model):
     class Meta:
         ordering = ["first_name", "last_name"]
 
+
 class Book(models.Model):
     title = models.CharField(max_length=100)
     authors = models.ManyToManyField(Author)
@@ -35,3 +38,7 @@ class Book(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class Item(models.Model):
+    text = models.CharField(max_length=100)

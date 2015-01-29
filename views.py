@@ -3,9 +3,10 @@ from django.http import Http404, HttpResponse
 from django.template import RequestContext
 from django.template import Template, Context
 from django.template.loader import get_template
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.db import connection
 from presistence.models import Publisher, Book
+from presistence.models import Item
 import datetime
 
 # def book_list(request):
@@ -55,18 +56,13 @@ def display_meta(request):
 
 
 def home(request):
+    if request.method == 'POST':
+        item = Item()
+        item.text = request.POST.get('item_text', '')
+        item.save()
+        return redirect('/')
 
-    # p1 = Publisher(name='Addison-Wesley', address='75 Arlington Street',
-    #     city='Boston', state_province='MA', country='U.S.A.',
-    #     website='http://www.apress.com/')
-    # p1.save()
-    # p2 = Publisher(name="O'Reilly", address='10 Fawcett St.',
-    #     city='Cambridge', state_province='MA', country='U.S.A.',
-    #     website='http://www.oreilly.com/')
-    # p2.save()
-
-    publisher_list = Publisher.objects.all()
-
-    model = {'title': 'To-Do', 'new_item_text': request.POST.get('item_text', '')}
+    items = Item.objects.all()
+    model = {'title': 'To-Do', 'items': items}
 
     return render_to_response('home.html', model, RequestContext(request))
