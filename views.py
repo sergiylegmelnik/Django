@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.http import Http404, HttpResponse
+from django.template import RequestContext
 from django.template import Template, Context
 from django.template.loader import get_template
 from django.shortcuts import render_to_response
@@ -44,6 +45,15 @@ def hours_ahead(request, offset):
     return HttpResponse(html)
 
 
+def display_meta(request):
+    values = request.META.items()
+    values.sort()
+    html = []
+    for k, v in values:
+        html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
+    return HttpResponse('<table>%s</table>' % '\n'.join(html))
+
+
 def home(request):
 
     # p1 = Publisher(name='Addison-Wesley', address='75 Arlington Street',
@@ -57,13 +67,6 @@ def home(request):
 
     publisher_list = Publisher.objects.all()
 
-    return render_to_response('home.html', {'title': 'To-Do'})
+    model = {'title': 'To-Do', 'new_item_text': request.POST.get('item_text', '')}
 
-
-def display_meta(request):
-    values = request.META.items()
-    values.sort()
-    html = []
-    for k, v in values:
-        html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, v))
-    return HttpResponse('<table>%s</table>' % '\n'.join(html))
+    return render_to_response('home.html', model, RequestContext(request))

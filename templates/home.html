@@ -5,8 +5,13 @@
 </head>
 <body>
 <h1>{{ title }}</h1>
-    <input type='text' placeholder='Enter a to-do item' id='id_new_item'/>
+    <form method="POST">
+        New:
+        <input type='text' placeholder='Enter a to-do item' id='id_new_item' name="item_text"/>
+        {% csrf_token %}
+    </form>
     <table id="id_list_table">
+        <tr><td>1: {{ new_item_text }}</td></tr>
     </table>
 </body></html>
 
